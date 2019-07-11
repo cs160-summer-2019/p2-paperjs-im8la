@@ -60,19 +60,29 @@
 			function myGradientInteraction(){
         var rect = new paper.Rectangle(210, 260, 300, 200);
         var path = new paper.Path.Rectangle(rect);
+        console.log(path);
 
         path.fillColor = 'red';
         
 				var tool = new paper.Tool();
 
+        var gOrigin;
+        var gDestination;
+        
 				tool.onMouseDown = function (event) {
-
+          gOrigin = event.point;
 				}
 
 				tool.onMouseUp = function (event) {
-					
+					gDestination = event.point;
+          
+          path.fillColor = {
+            gradient: {stops: [cp.history.slice(-2)[0], cp.history.slice(-1)[0]]}, 
+            origin: gOrigin, 
+            destination: gDestination
+            };
+          }
 				}
-			}
 
 			// your custom interaction goes here!
 			// you may replace everything
